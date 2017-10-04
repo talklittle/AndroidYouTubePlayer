@@ -1,7 +1,9 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntDef;
@@ -43,7 +45,12 @@ public class YouTubePlayer extends WebView {
         youTubeListeners = new HashSet<>();
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     protected void initialize(@Nullable YouTubeListener youTubeListener) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            throw new IllegalStateException("Should not use this class prior to API 17 due to security issues");
+        }
+
         if(youTubeListener != null)
             this.youTubeListeners.add(youTubeListener);
 

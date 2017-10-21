@@ -1,7 +1,9 @@
 package com.pierfrancescosoffritti.youtubeplayer.player;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -174,7 +176,12 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         return youTubePlayerListeners.remove(listener);
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initWebView() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            throw new IllegalStateException("Should not use this class prior to API 17 due to security issues");
+        }
+
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);

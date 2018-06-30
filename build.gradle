@@ -2,7 +2,7 @@ buildscript {
     project.ext {
         compileSdk = 27
         buildTools = '27.0.3'
-        minSdk = 17
+        minSdk = 16
         targetSdk = 27
 
         versionCode_core = 8
